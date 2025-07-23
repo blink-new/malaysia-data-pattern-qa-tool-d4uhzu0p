@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { PatternTester } from '@/components/PatternTester';
 import { QAInterface } from '@/components/QAInterface';
+import { SentenceAnalyzer } from '@/components/SentenceAnalyzer';
 import { 
   malaysianNamePatterns, 
   malaysianPhonePatterns, 
@@ -11,7 +12,7 @@ import {
   generateTestDataset,
   TestCase
 } from '@/utils/malaysianPatterns';
-import { User, Phone, Mail, Target, Database, CheckSquare } from 'lucide-react';
+import { User, Phone, Mail, Target, Database, CheckSquare, Search } from 'lucide-react';
 
 function App() {
   const [testDataset] = useState<TestCase[]>(() => generateTestDataset());
@@ -66,8 +67,12 @@ function App() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Tabs defaultValue="names" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+        <Tabs defaultValue="analyzer" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="analyzer" className="flex items-center gap-2">
+              <Search className="h-4 w-4" />
+              Sentence Analyzer
+            </TabsTrigger>
             <TabsTrigger value="names" className="flex items-center gap-2">
               <User className="h-4 w-4" />
               Names ({datasetStats.name.total})
@@ -81,6 +86,11 @@ function App() {
               Emails ({datasetStats.email.total})
             </TabsTrigger>
           </TabsList>
+
+          {/* Sentence Analyzer Tab */}
+          <TabsContent value="analyzer" className="space-y-6">
+            <SentenceAnalyzer />
+          </TabsContent>
 
           {/* Names Tab */}
           <TabsContent value="names" className="space-y-6">
